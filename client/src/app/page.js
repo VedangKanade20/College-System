@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>d</div>;
+  return <div>Testing the lefthook</div>;
 }
