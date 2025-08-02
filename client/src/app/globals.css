@@ -53,12 +53,12 @@
   --card-foreground: oklch(0.147 0.004 49.25);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.147 0.004 49.25);
-  --primary: #2B0092;
-  --gray: #4B5563;
-  --button-background: #636AE8;
-  --border: #E5E7EB;
+  --primary: #2b0092;
+  --gray: #4b5563;
+  --button-background: #636ae8;
+  --border: #e5e7eb;
   --primary-foreground: oklch(0.985 0.001 106.423);
-  --secondary: oklch(0.97 0.001 106.424);
+  --secondary: #E6E1F9;
   --secondary-foreground: oklch(0.216 0.006 56.043);
   --muted: oklch(0.97 0.001 106.424);
   --muted-foreground: oklch(0.553 0.013 58.071);
