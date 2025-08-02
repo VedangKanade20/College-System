@@ -3,6 +3,10 @@ import {
   IconColumns1,
   IconBookUpload,
   IconFileSpreadsheet,
+  IconBrandFacebookFilled,
+  IconBrandXFilled,
+  IconBrandLinkedinFilled,
+  IconBrandInstagram,
 } from "@tabler/icons-react";
 
 export const featureCardDetails = [
@@ -33,5 +37,24 @@ export const featureCardDetails = [
       "Import existing data from Excel spreadsheets with automatic formatting and error detection.",
     icon: <IconFileSpreadsheet stroke={1} color="#C75A2A" />,
     backgroundColor: "#FFF3E6",
+  },
+];
+
+export const socialMediaIcon = [
+  {
+    link: "",
+    icon: <IconBrandFacebookFilled />,
+  },
+  {
+    link: "",
+    icon: <IconBrandXFilled />,
+  },
+  {
+    link: "",
+    icon: <IconBrandLinkedinFilled />,
+  },
+  {
+    link: "",
+    icon: <IconBrandInstagram stroke={2} />,
   },
 ];

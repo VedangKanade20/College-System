@@ -34,6 +34,9 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-gray: var(--gray);
+  --color-footer-text: var(--footer-text);
+  --color-footer-background: var(--footer-background);
+  --color-social-icon: var(--social-icon);
   --color-button-background: var(--button-background);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -57,6 +60,9 @@
   --gray: #4b5563;
   --button-background: #636ae8;
   --border: #e5e7eb;
+  --footer-background: #0f1521;
+  --footer-text: #a0a0b8;
+  --social-icon: #2a2a2a;
   --primary-foreground: oklch(0.985 0.001 106.423);
   --secondary: #e6e1f9;
   --secondary-background: #f9fafb;
