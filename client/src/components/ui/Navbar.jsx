@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export const Navbar = () => {
@@ -5,7 +6,9 @@ export const Navbar = () => {
     <nav className="flex justify-between py-3 items-center border-b-1 border-border px-14">
       {/* Logo */}
       <div>
-        <p className="uppercase font-bold text-xl text-primary">nmitd obe</p>
+        <Link href="/">
+          <p className="uppercase font-bold text-xl text-primary">nmitd obe</p>
+        </Link>
       </div>
 
       {/* nav links */}
@@ -17,10 +20,15 @@ export const Navbar = () => {
 
       {/* buttons */}
       <div className="flex items-center justify-center gap-3">
-        <button className="text-button-background">Login</button>
-        <button className="bg-button-background px-4 py-2 rounded-[10px] text-white">
+        <Link href="/login" className="text-button-background">
+          Login
+        </Link>
+        <Link
+          href="/signup"
+          className="bg-button-background px-4 py-2 rounded-[10px] text-white"
+        >
           Sign Up
-        </button>
+        </Link>
       </div>
     </nav>
   );

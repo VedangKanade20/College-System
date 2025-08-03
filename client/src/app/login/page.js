@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Signup() {
+export default function Login() {
   const [activeTab, setActiveTab] = useState("admin");
 
   return (
@@ -13,9 +13,12 @@ export default function Signup() {
       <div className="bg-white rounded-lg shadow-lg w-[900px] flex overflow-hidden">
         {/* Left Section */}
         <div className="w-1/2 p-10">
-          <h2 className="text-2xl font-bold text-primary mb-6">
-            Create Your Account
+          <h2 className="text-2xl font-bold text-primary mb-1">
+            Login to Your Account
           </h2>
+          <p className="text-sm text-gray-500 mb-6">
+            Welcome back! Please enter your details.
+          </p>
 
           {/* Tabs */}
           <div className="flex gap-4 mb-6">
@@ -44,11 +47,6 @@ export default function Signup() {
           {/* Form */}
           <form className="space-y-4">
             <input
-              type="text"
-              placeholder="Enter your Name"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
-            />
-            <input
               type="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
@@ -58,26 +56,27 @@ export default function Signup() {
               placeholder="Enter your password"
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
             />
-            <input
-              type="password"
-              placeholder="Conform your password"
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
-            />
             <button
               type="submit"
               className="w-full py-2 bg-button-background text-white rounded cursor-pointer"
             >
-              Signup
+              Login
             </button>
           </form>
 
           <div className="flex items-center justify-between mt-2">
             <Link
-              href="/login"
+              href="/signup"
               className="text-xs text-button-background hover:underline"
             >
-              Already have an account?
+              Don&apos;t have account?
             </Link>
+            <a
+              href="#"
+              className="text-xs text-button-background hover:underline"
+            >
+              Forgot Password?
+            </a>
           </div>
 
           {/* OR divider */}
@@ -101,7 +100,7 @@ export default function Signup() {
         {/* Right Section - Illustration */}
         <div className="w-1/2 bg-blue-50 flex items-center justify-center">
           <Image
-            src="/signup.png"
+            src="/login.png"
             alt="Illustration"
             width={500}
             height={500}
