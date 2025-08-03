@@ -71,12 +71,12 @@ export default function Login() {
             >
               Don&apos;t have account?
             </Link>
-            <a
-              href="#"
+            <Link
+              href="/forget-password"
               className="text-xs text-button-background hover:underline"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {/* OR divider */}
