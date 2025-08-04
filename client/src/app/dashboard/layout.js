@@ -1,3 +1,4 @@
+import ProfileSegment from "./_components/ProfileSegment";
 import Sidebar from "./_components/Sidebar";
 
 export default function RootLayout({ children }) {
@@ -5,6 +6,7 @@ export default function RootLayout({ children }) {
     <section className="flex">
       <Sidebar />
       <main className="flex-1 p-6 w-[80%] bg-gray-50 min-h-screen">
+        <ProfileSegment />
         {children}
       </main>
     </section>
