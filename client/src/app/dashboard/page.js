@@ -1,7 +1,7 @@
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-blue-700">Dashboard</h1>
+      <h1 className="text-xl font-semibold text-primary">Dashboard</h1>
 
       <div className="grid grid-cols-3 gap-6">
         <div className="bg-blue-100 p-4 rounded shadow">
