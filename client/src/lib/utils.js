@@ -7,6 +7,12 @@ import {
   IconBrandXFilled,
   IconBrandLinkedinFilled,
   IconBrandInstagram,
+  IconAppsFilled,
+  IconGitBranch,
+  IconBookFilled,
+  IconLuggage,
+  IconChalkboardTeacher,
+  IconUpload,
 } from "@tabler/icons-react";
 
 export const featureCardDetails = [
@@ -56,5 +62,38 @@ export const socialMediaIcon = [
   {
     link: "",
     icon: <IconBrandInstagram stroke={2} />,
+  },
+];
+
+export const sideBarLinks = [
+  {
+    name: "Dashboard",
+    link: "/",
+    icon: <IconAppsFilled />,
+  },
+  {
+    name: "Branch Management",
+    link: "/branch-management",
+    icon: <IconGitBranch stroke={2} />,
+  },
+  {
+    name: "Subject Allocation",
+    link: "/subject-allocation",
+    icon: <IconBookFilled />,
+  },
+  {
+    name: "Syllabus",
+    link: "/syllabus",
+    icon: <IconLuggage stroke={2} />,
+  },
+  {
+    name: "Teachers",
+    link: "/teachers",
+    icon: <IconChalkboardTeacher stroke={2} />,
+  },
+  {
+    name: "Excel Upload",
+    link: "/excel-upload",
+    icon: <IconUpload stroke={2} />,
   },
 ];
