@@ -72,6 +72,11 @@ export const sideBarLinks = [
     icon: <IconAppsFilled />,
   },
   {
+    name: "Syllabus Mapping",
+    link: "/syllabus-mapping",
+    icon: <IconBookFilled />,
+  },
+  {
     name: "Branch Management",
     link: "/branch-management",
     icon: <IconGitBranch stroke={2} />,
