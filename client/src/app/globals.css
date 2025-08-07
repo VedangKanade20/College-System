@@ -38,6 +38,7 @@
   --color-footer-background: var(--footer-background);
   --color-social-icon: var(--social-icon);
   --color-button-background: var(--button-background);
+  --color-hover-button-background: var(--hover-button-background);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -59,6 +60,7 @@
   --primary: #2b0092;
   --gray: #4b5563;
   --button-background: #636ae8;
+  --hover-button-background: #4f39f6;
   --border: #e5e7eb;
   --footer-background: #0f1521;
   --footer-text: #a0a0b8;
