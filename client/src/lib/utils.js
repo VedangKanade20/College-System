@@ -77,6 +77,11 @@ export const sideBarLinks = [
     icon: <IconBookFilled />,
   },
   {
+    name: "Lesson Plan",
+    link: "/lesson-plan-management",
+    icon: <IconLuggage stroke={2} />,
+  },
+  {
     name: "Branch Management",
     link: "/branch-management",
     icon: <IconGitBranch stroke={2} />,
