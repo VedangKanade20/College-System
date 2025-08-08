@@ -3,6 +3,7 @@ import express from "express";
 import connectDB from "./config/connectdb.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRouter from "./routes/userRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -32,3 +33,5 @@ connectDB()
 app.get("/", (req, res) => {
   res.end("Hello world");
 });
+
+app.use("/api/users", userRouter);
