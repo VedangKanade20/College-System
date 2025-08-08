@@ -10,7 +10,7 @@ export default function Sidebar() {
   console.log(pathname);
 
   return (
-    <div className="w-[20%] bg-white min-h-screen border-r px-4 py-6">
+    <div className="w-[20%] fixed top-0 left-0 h-screen bg-white border-r px-4 py-6">
       <h2 className="text-lg font-bold mb-6 text-primary cursor-pointer">
         <Link href="/">NMITD OBE</Link>
       </h2>
