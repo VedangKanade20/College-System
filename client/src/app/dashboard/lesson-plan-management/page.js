@@ -17,14 +17,14 @@ export default function LessonPlan() {
   const toggleEdit = (index) => {
     setLessonPlans((prev) =>
       prev.map((item, i) =>
-        i === index ? { ...item, editing: !item.editing } : item
-      )
+        i === index ? { ...item, editing: !item.editing } : item,
+      ),
     );
   };
 
   const handleChange = (index, field, value) => {
     setLessonPlans((prev) =>
-      prev.map((item, i) => (i === index ? { ...item, [field]: value } : item))
+      prev.map((item, i) => (i === index ? { ...item, [field]: value } : item)),
     );
   };
 

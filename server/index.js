@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL, // frontend url
     credentials: true, // allow cookies
-  })
+  }),
 );
 
 // connect to database

@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     department: String,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 userSchema.methods.isPasswordCorrect = async function (password) {
