@@ -11,6 +11,7 @@ import {
   IconGitBranch,
   IconBookFilled,
   IconLuggage,
+  IconFileUpload,
   IconChalkboardTeacher,
   IconUpload,
 } from "@tabler/icons-react";
@@ -70,6 +71,21 @@ export const sideBarLinks = [
     name: "Dashboard",
     link: "/",
     icon: <IconAppsFilled />,
+  },
+  {
+    name: "Syllabus Mapping",
+    link: "/syllabus-mapping",
+    icon: <IconBookFilled />,
+  },
+  {
+    name: "Lesson Plan",
+    link: "/lesson-plan-management",
+    icon: <IconLuggage stroke={2} />,
+  },
+  {
+    name: "Assessment Plan",
+    link: "/assessment-plan-management",
+    icon: <IconFileUpload stroke={2} />,
   },
   {
     name: "Branch Management",
