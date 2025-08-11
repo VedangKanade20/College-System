@@ -9,6 +9,7 @@ import { Tailspin } from "ldrs/react";
 import "ldrs/react/Tailspin.css";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import apiUrl from "@/helper/apiUrl";
 
 export default function Signup() {
   const [activeTab, setActiveTab] = useState("admin");
@@ -52,7 +53,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${apiUrl}/users/register`,
         {
           name: formData.name,
           email: formData.email,

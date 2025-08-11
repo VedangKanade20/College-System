@@ -1,6 +1,7 @@
 // pages/index.js
 "use client";
 
+import apiUrl from "@/helper/apiUrl";
 import axios from "axios";
 import { Tailspin } from "ldrs/react";
 import Image from "next/image";
@@ -39,7 +40,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        `${apiUrl}/users/login`,
         {
           email: formData.email,
           password: formData.password,
