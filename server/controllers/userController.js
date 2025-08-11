@@ -67,7 +67,10 @@ export const loginUser = async (req, res) => {
 
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
-      return res.status(400).send("Invalid credentials");
+      return res.status(400).json({
+        message: "Invalid credentials",
+        success: false,
+      });
     }
 
     const token = user.generateAuthToken();
@@ -82,6 +85,7 @@ export const loginUser = async (req, res) => {
     console.log("User logged in:", user);
     res.status(200).json({
       message: "User logged in successfully",
+      success: true,
       user: {
         id: user._id,
         name: user.name,
