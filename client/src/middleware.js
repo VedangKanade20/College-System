@@ -10,8 +10,8 @@ export function middleware(req) {
   }
 
   if (
-    (token && pathname.startsWith("/login")) ||
-    pathname.startsWith("/signup")
+    token &&
+    (pathname.startsWith("/login") || pathname.startsWith("/signup"))
   ) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
