@@ -40,6 +40,7 @@ export const registerUser = async (req, res) => {
         email: user.email,
         role: user.role,
         department: user.department,
+        assignedSubjects: user.assignedSubjects || [],
       },
     });
   } catch (error) {
