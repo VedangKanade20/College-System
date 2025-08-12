@@ -1,5 +1,4 @@
 import User from "../models/userModel.js";
-import bcrypt from "bcryptjs";
 
 export const registerUser = async (req, res) => {
   try {
@@ -99,3 +98,24 @@ export const loginUser = async (req, res) => {
     return res.status(500).send("Server errorrrrrrrrrrrrrrrrrrrrrr");
   }
 }; // checked done
+
+// get the logged in user
+export const getLoggedInUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+    res.status(200).json({
+      message: "User fetched successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send("Server errorrrrrrrrrrrrrrrrrrrrrr");
+  }
+};

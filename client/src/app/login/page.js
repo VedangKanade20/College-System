@@ -1,16 +1,18 @@
 // pages/index.js
 "use client";
 
+import { UserContext } from "@/context/userContext";
 import apiUrl from "@/helper/apiUrl";
 import axios from "axios";
 import { Tailspin } from "ldrs/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "sonner";
 
 export default function Login() {
+  const { setUser } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState("admin");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -57,6 +59,7 @@ export default function Login() {
           email: "",
           password: "",
         });
+        setUser(response?.data?.user);
         router.push("/dashboard");
         // console.log(response.data);
       }

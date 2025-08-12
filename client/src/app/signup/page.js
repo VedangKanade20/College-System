@@ -4,14 +4,16 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Tailspin } from "ldrs/react";
 import "ldrs/react/Tailspin.css";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import apiUrl from "@/helper/apiUrl";
+import { UserContext } from "@/context/userContext";
 
 export default function Signup() {
+  const { setUser } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState("admin");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -76,6 +78,7 @@ export default function Signup() {
           confirmPassword: "",
           department: "",
         });
+        setUser(response?.data?.user);
         router.push("/dashboard");
         // console.log(response.data);
       }
