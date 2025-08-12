@@ -12,7 +12,7 @@ const programSchema = new mongoose.Schema(
       unique: true,
     }, // e.g. "anyy"
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Program = mongoose.model("Program", programSchema);

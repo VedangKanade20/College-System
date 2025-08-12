@@ -4,14 +4,14 @@ const courseOutcomeSchema = new mongoose.Schema(
   {
     coCode: {
       type: String,
-      required: true
+      required: true,
     }, // e.g., CO1
     description: {
       type: String,
-      required: true
+      required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const CourseOutcome = mongoose.model("CourseOutcome", courseOutcomeSchema);

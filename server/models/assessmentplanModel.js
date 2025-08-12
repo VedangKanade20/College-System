@@ -13,7 +13,7 @@ const assessmentPlanSchema = new mongoose.Schema(
       default: [],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const AssessmentPlan = mongoose.model("AssessmentPlan", assessmentPlanSchema);

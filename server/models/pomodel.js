@@ -11,7 +11,7 @@ const programOutcomeSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const ProgramOutcome = mongoose.model("ProgramOutcome", programOutcomeSchema);

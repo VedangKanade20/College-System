@@ -10,7 +10,7 @@ const semesterSchema = new mongoose.Schema(
       type: String,
     }, // e.g. "Odd Semester"
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Semester = mongoose.model("Semester", semesterSchema);

@@ -10,7 +10,7 @@ const syllabusSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Syllabus = mongoose.model("Syllabus", syllabusSchema);

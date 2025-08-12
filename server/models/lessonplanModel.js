@@ -2,23 +2,25 @@ import mongoose from "mongoose";
 
 const lessonPlanSchema = new mongoose.Schema(
   {
-    date: { 
-        type: Date, required: true 
+    date: {
+      type: Date,
+      required: true,
     },
-    division: { 
-        type: String 
+    division: {
+      type: String,
     }, // e.g., "A"
-    topic: { 
-        type: String 
+    topic: {
+      type: String,
     },
-    coveredTopic: { 
-        type: Boolean, default: false 
+    coveredTopic: {
+      type: Boolean,
+      default: false,
     },
-    extradesc: { 
-        type: String 
+    extradesc: {
+      type: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const LessonPlan = mongoose.model("LessonPlan", lessonPlanSchema);

@@ -2,24 +2,24 @@ import mongoose from "mongoose";
 
 const subjectSchema = new mongoose.Schema(
   {
-    name: { 
-        type: String, 
-        required: true 
+    name: {
+      type: String,
+      required: true,
     },
-    code: { 
-        type: String, 
-        required: true, 
-        unique: true 
+    code: {
+      type: String,
+      required: true,
+      unique: true,
     },
 
     // only theory or lab
-    type: { 
-        type: String, 
-        enum: ["theory", "lab"], 
-        required: true 
+    type: {
+      type: String,
+      enum: ["theory", "lab"],
+      required: true,
     },
 
-    // optional at creation 
+    // optional at creation
     academicYear: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "AcademicYear",
@@ -53,7 +53,7 @@ const subjectSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "AssessmentPlan" },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Subject = mongoose.model("Subject", subjectSchema);

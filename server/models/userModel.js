@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
       { type: mongoose.Schema.Types.ObjectId, ref: "Subject" },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 userSchema.methods.isPasswordCorrect = async function (password) {
