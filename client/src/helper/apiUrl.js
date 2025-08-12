@@ -1,1 +1,3 @@
-export default apiUrl = "http://localhost:5000/api";
+const apiUrl = "http://localhost:5000/api";
+
+export default apiUrl;
