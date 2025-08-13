@@ -1,5 +1,4 @@
 import User from "../models/userModel.js";
-import bcrypt from "bcryptjs";
 
 export const registerUser = async (req, res) => {
   try {
@@ -10,7 +9,10 @@ export const registerUser = async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).send("User already exists");
+      return res.status(400).json({
+        message: "User already exists",
+        success: false,
+      });
     }
 
     const user = new User({
@@ -34,6 +36,7 @@ export const registerUser = async (req, res) => {
     console.log("User registered:", user);
     res.status(200).json({
       message: "User registered successfully",
+      success: true,
       user: {
         id: user._id,
         name: user.name,
@@ -64,7 +67,10 @@ export const loginUser = async (req, res) => {
 
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
-      return res.status(400).send("Invalid credentials");
+      return res.status(400).json({
+        message: "Invalid credentials",
+        success: false,
+      });
     }
 
     const token = user.generateAuthToken();
@@ -79,6 +85,7 @@ export const loginUser = async (req, res) => {
     console.log("User logged in:", user);
     res.status(200).json({
       message: "User logged in successfully",
+      success: true,
       user: {
         id: user._id,
         name: user.name,
@@ -92,3 +99,24 @@ export const loginUser = async (req, res) => {
     return res.status(500).send("Server errorrrrrrrrrrrrrrrrrrrrrr");
   }
 }; // checked done
+
+// get the logged in user
+export const getLoggedInUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+    res.status(200).json({
+      message: "User fetched successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send("Server errorrrrrrrrrrrrrrrrrrrrrr");
+  }
+};

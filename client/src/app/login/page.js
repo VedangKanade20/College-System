@@ -1,12 +1,79 @@
 // pages/index.js
 "use client";
 
+import { UserContext } from "@/context/userContext";
+import apiUrl from "@/helper/apiUrl";
+import axios from "axios";
+import { Tailspin } from "ldrs/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import { toast } from "sonner";
 
 export default function Login() {
+  const { setUser } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState("admin");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // function to handle login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!formData.email || !formData.password) {
+      toast.warning("Please fill all the fields");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/users/login`,
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          withCredentials: true, // to send cookies with the request
+        }
+      );
+      if (response.status === 200) {
+        toast.success(response.data.message, {
+          duration: 3000,
+        });
+        setFormData({
+          email: "",
+          password: "",
+        });
+        setUser(response?.data?.user);
+        router.push("/dashboard");
+        // console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -48,19 +115,32 @@ export default function Login() {
           <form className="space-y-4">
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Enter your email"
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
             />
             <input
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Enter your password"
               className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:button-background"
             />
             <button
               type="submit"
-              className="w-full py-2 bg-button-background text-white rounded cursor-pointer"
+              className={`w-full py-2 cursor-not-allowed bg-button-background text-white rounded  
+              ${isLoading ? "cursor-not-allowed" : "cursor-pointer"}
+              `}
+              onClick={handleLogin}
             >
-              Login
+              {isLoading ? (
+                <Tailspin size="25" stroke="3" speed="0.9" color="white" />
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
 
