@@ -4,6 +4,7 @@ import connectDB from "./config/connectdb.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
+import programRouter from "./routes/programRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -16,7 +17,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL, // frontend url
     credentials: true, // allow cookies
-  }),
+  })
 );
 
 // connect to database
@@ -35,3 +36,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/program", programRouter);

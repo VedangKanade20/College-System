@@ -5,14 +5,35 @@ const programSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-    }, // e.g. "MCA/mms"
+    },
     code: {
-      type: String,
+      type: Number,
       required: true,
       unique: true,
-    }, // e.g. "anyy"
+    },
+    PO: {
+      type: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
+          description: {
+            type: String,
+            required: true, // note: "required", not "require"
+          },
+        },
+      ],
+      required: true,
+      validate: {
+        validator: function (v) {
+          return v.length > 0;
+        },
+        message: "PO array cannot be empty",
+      },
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const Program = mongoose.model("Program", programSchema);
