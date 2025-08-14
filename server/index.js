@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
 import programRouter from "./routes/programRoutes.js";
+import batchRouter from "./routes/batchRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -37,3 +38,4 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/program", programRouter);
+app.use("/api/batch", batchRouter);
