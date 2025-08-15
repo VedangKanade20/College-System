@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addSubjectToSemester,
+  addSyllabusToSubject,
   createSemester,
   getFacultySubjectsForSyllabus,
 } from "../controllers/semesterController.js";
@@ -14,6 +15,12 @@ semesterRouter.get(
   "/program/:programId/batch/:batchId/semester/:semName/subjects",
   verifyJWT,
   getFacultySubjectsForSyllabus
+);
+
+semesterRouter.post(
+  "/:semesterId/subjects/:subjectCode/syllabus",
+  verifyJWT,
+  addSyllabusToSubject
 );
 
 export default semesterRouter;

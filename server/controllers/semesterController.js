@@ -118,3 +118,50 @@ export const getFacultySubjectsForSyllabus = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+// Add subject to faculty for semester
+export const addSyllabusToSubject = async (req, res) => {
+  try {
+    const { semesterId, subjectCode } = req.params;
+    const facultyId = req.user._id; // from verifyJWT middleware
+    const { modules, CO, lessonPlan, assessmentPlan } = req.body;
+
+    // Find the semester and check if the subject is allocated to this faculty
+    const semester = await Semester.findOne({
+      _id: semesterId,
+      "subjects.subjectCode": subjectCode,
+      "subjects.facultyId": facultyId,
+    });
+
+    if (!semester) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to add syllabus for this subject",
+      });
+    }
+
+    // Update the syllabus for that subject
+    const subjectIndex = semester.subjects.findIndex(
+      (sub) =>
+        sub.subjectCode === Number(subjectCode) &&
+        sub.facultyId.toString() === facultyId.toString()
+    );
+
+    semester.subjects[subjectIndex].syllabus = {
+      modules: modules || [],
+      CO: CO || [],
+      lessonPlan: lessonPlan || [],
+      assessmentPlan: assessmentPlan || {},
+    };
+
+    await semester.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Syllabus added/updated successfully",
+      subject: semester.subjects[subjectIndex],
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
