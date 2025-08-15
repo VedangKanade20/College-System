@@ -23,6 +23,40 @@ export const createSemester = async (req, res) => {
   }
 };
 
+//get all semesters
+export const getAllSemesters = async (req, res) => {
+  try {
+    const semesters = await Semester.find();
+    res.status(200).json({
+      success: true,
+      data: semesters,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+//semester details
+export const getSemesterDetails = async (req, res) => {
+  try {
+    const { semesterId } = req.params;
+    const semester = await Semester.findById(semesterId);
+    if (!semester) {
+      return res.status(404).json({
+        success: false,
+        message: "Semester not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: semester,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+//middleware to be added
 // Add a new subject to a semester
 export const addSubjectToSemester = async (req, res) => {
   try {
@@ -80,6 +114,36 @@ export const addSubjectToSemester = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+//dumyy data
+
+/* 
+{
+      "name": "Digital Marketing Theory E-1",
+      "subjectCode": 12543, 
+      "facultyId": "689f378b8f860c2c68fa5f37",
+    "syllabus" : [
+    {
+      "syllabus" :{
+        "modules": [
+          {
+          "moduleNo": 1,
+          "detailcontents": "Intro",
+          "hours": 5,
+          "refNo": "1,3,4"
+          },
+          {
+          "moduleNo": 2,
+          "detailcontents": "History",
+          "hours": 7,
+          "refNo": "1,2,4"
+          }
+        ]
+      }
+    }
+  ]
+}
+*/
 
 // Getting the faculty Subject for syllabus
 

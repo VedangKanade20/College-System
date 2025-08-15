@@ -41,3 +41,55 @@ export const createBatch = async (req, res) => {
       .json({ success: false, message: "Server error", error: error.message });
   }
 };
+
+export const getAllBatches = async (req, res) => {
+  try {
+    const batches = await Batch.find();
+
+    if (!batches) {
+      return res.status(404).json({
+        success: false,
+        message: "batch does not exist",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Batches fetched successfully",
+      batches,
+    });
+  } catch (error) {
+    console.error("Error fetching batches:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching batches",
+      error: error.message,
+    });
+  }
+};
+
+export const getBatchDetails = async (req, res) => {
+  try {
+    const { batchId } = req.params;
+
+    const batch = await Batch.findById(batchId);
+    if (!batch) {
+      return res.status(404).json({
+        success: false,
+        message: "Batch not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Batch fetched successfully",
+      batch,
+    });
+  } catch (error) {
+    console.error("Error fetching batch:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching batch",
+      error: error.message,
+    });
+  }
+};
