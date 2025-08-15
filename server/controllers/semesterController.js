@@ -1,3 +1,4 @@
+import Batch from "../models/batchModel.js";
 import Semester from "../models/semesterModel.js";
 
 // CREATE the semester
@@ -74,6 +75,44 @@ export const addSubjectToSemester = async (req, res) => {
       success: true,
       message: "Subject added successfully",
       data: semester,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+// Getting the faculty Subject for syllabus
+
+export const getFacultySubjectsForSyllabus = async (req, res) => {
+  try {
+    const { programId, batchId, semName } = req.params;
+    const facultyId = req.user._id; // Assuming you have authentication middleware
+
+    // Validate batch belongs to program
+    const batch = await Batch.findOne({ _id: batchId, program: programId });
+    if (!batch) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Batch not found for this program" });
+    }
+
+    // Find semester with given semName and batch
+    const semester = await Semester.findOne(
+      { semName: Number(semName), batchId, "subjects.facultyId": facultyId },
+      { "subjects.$": 1, semName: 1 }
+    );
+
+    if (!semester) {
+      return res.status(404).json({
+        success: false,
+        message: "No subjects found for this faculty in the given semester",
+      });
+    }
+
+    res.json({
+      success: true,
+      semName: semester.semName,
+      subjects: semester.subjects,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
