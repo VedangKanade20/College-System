@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoutes.js";
 import programRouter from "./routes/programRoutes.js";
 import batchRouter from "./routes/batchRoutes.js";
 import semesterRouter from "./routes/semesterRoutes.js";
+import commonRouter from "./routes/commonRoute.js";
 
 dotenv.config();
 const app = express();
@@ -41,3 +42,4 @@ app.use("/api/users", userRouter);
 app.use("/api/program", programRouter);
 app.use("/api/batch", batchRouter);
 app.use("/api/semester", semesterRouter);
+app.use("/api/common", commonRouter);
