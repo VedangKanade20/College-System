@@ -8,7 +8,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [allocatedSubjects, setAllocatedSubject] = useState([]);
+  const [allocatedSubjects, setAllocatedSubject] = useState(null);
   const [programBatchSemester, setProgramBatchSemester] = useState({});
 
   // Function to fetch the logged in user data
@@ -38,10 +38,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const fetchAllocatedSubjectToFaculty = async () => {
+  // Function to fetch all the subject allocated to the faculty
+  const fetchAllocatedSubjectToFaculty = async (
+    programId,
+    batchId,
+    semesterName
+  ) => {
     try {
       const { data } = await axios.get(
-        `${apiUrl}/semester/program/689ddff05229b08c533fcb32/batch/689df9bde4a7f2be3a198d9f/semester/1/subjects`,
+        `${apiUrl}/semester/program/${programId}/batch/${batchId}/semester/${semesterName}/subjects`,
         {
           withCredentials: true,
         }
@@ -49,7 +54,7 @@ export const UserProvider = ({ children }) => {
 
       setAllocatedSubject(data);
     } catch (error) {
-      setAllocatedSubject([]);
+      setAllocatedSubject(error?.response?.data);
       console.log(error);
     }
   };
@@ -61,11 +66,19 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   console.log("This is the logged user data", user);
-  console.log("This is the allocaed subjects", allocatedSubjects);
-  console.log("This is the Program Batch Semester data", programBatchSemester);
+  // console.log("This is the allocaed subjects", allocatedSubjects);
+  // console.log("This is the Program Batch Semester data", programBatchSemester);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        programBatchSemester,
+        fetchAllocatedSubjectToFaculty,
+        allocatedSubjects,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

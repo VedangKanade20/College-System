@@ -1,9 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { UserContext } from "@/context/userContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function Filters() {
-  const [semester, setSemester] = useState("Sem I");
+  const { programBatchSemester, fetchAllocatedSubjectToFaculty } =
+    useContext(UserContext);
+  const [userFilterSelection, setUserFilterSelection] = useState({
+    programId: "",
+    batchId: "",
+    semesterName: "",
+  });
+
+  // Set default values when programBatchSemester is loaded
+  useEffect(() => {
+    if (programBatchSemester) {
+      setUserFilterSelection({
+        programId: programBatchSemester?.program?.[0]?._id || "",
+        batchId: programBatchSemester?.batch?.[0]?.batch_id || "",
+        semesterName: programBatchSemester?.semester?.[0]?.name || "",
+      });
+    }
+  }, [programBatchSemester]);
+
+  //   console.log(programBatchSemester);
+
+  // handle change for program & batch
+  const handleChange = (key, value) => {
+    setUserFilterSelection((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  // handle semester click
+  const handleSemesterClick = (sem) => {
+    setUserFilterSelection((prev) => ({
+      ...prev,
+      semesterName: sem,
+    }));
+  };
+
+  //   handle get the allocated subject to the faculty
+  const handleAllocatedSubject = () => {
+    fetchAllocatedSubjectToFaculty(
+      userFilterSelection.programId,
+      userFilterSelection.batchId,
+      userFilterSelection.semesterName
+    );
+  };
+
+  //   console.log(userFilterSelection);
+  //   console.log(allocatedSubjects);
 
   return (
     <>
@@ -13,40 +61,61 @@ export default function Filters() {
           {/* Select program */}
           <div>
             <label className="block">Select Program</label>
-            <select className="mt-1 block rounded border-gray border px-5 text-gray py-2 shadow-sm focus:ring-button-background focus:border-button-background text-sm">
-              <option>MCA</option>
+            <select
+              value={userFilterSelection.programId}
+              onChange={(e) => handleChange("programId", e.target.value)}
+              className="mt-1 block rounded border-gray border px-5 text-gray py-2 shadow-sm focus:ring-button-background focus:border-button-background text-sm"
+            >
+              {programBatchSemester?.program?.map((program) => {
+                return (
+                  <option key={program?._id} value={program?._id}>
+                    {program?.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           {/* Academic year */}
           <div>
             <label className="block">Academic Year</label>
-            <select className="mt-1 block rounded border-gray border px-5 text-gray py-2 shadow-sm focus:ring-button-background focus:border-button-background text-sm">
-              <option>2023-25</option>
-              <option>2024-26</option>
-              <option>2025-27</option>
+            <select
+              value={userFilterSelection.batchId}
+              onChange={(e) => handleChange("batchId", e.target.value)}
+              className="mt-1 block rounded border-gray border px-5 text-gray py-2 shadow-sm focus:ring-button-background focus:border-button-background text-sm"
+            >
+              {programBatchSemester?.batch?.map((batch) => {
+                return (
+                  <option key={batch?.batch_id} value={batch?.batch_id}>
+                    {batch?.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           {/* Done button */}
-          <button className="bg-button-background px-5 py-2 text-white rounded-md hover:bg-hover-button-background transition-all duration-75 ease-in cursor-pointer">
+          <button
+            onClick={handleAllocatedSubject}
+            className="bg-button-background px-5 py-2 text-white rounded-md hover:bg-hover-button-background transition-all duration-75 ease-in cursor-pointer"
+          >
             Done
           </button>
         </div>
 
         {/* Semester Buttons */}
         <div className="flex gap-3">
-          {["Sem I", "Sem II", "Sem III", "Sem IV"].map((sem) => (
+          {programBatchSemester?.semester?.map((sem) => (
             <button
-              key={sem}
-              onClick={() => setSemester(sem)}
+              key={sem?.semester_id}
+              onClick={() => handleSemesterClick(sem?.name)}
               className={`px-4 py-1 rounded cursor-pointer shadow border text-sm ${
-                semester === sem
+                userFilterSelection.semesterName === sem?.name
                   ? "bg-button-background text-white"
                   : "border-secondary-button-background bg-secondary-button-background text-gray-700"
               }`}
             >
-              {sem}
+              Sem {sem?.name}
             </button>
           ))}
         </div>

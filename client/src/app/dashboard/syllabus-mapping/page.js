@@ -1,6 +1,7 @@
 import SubjectAllocation from "./_components/SubjectAllocation";
 import Skeleton from "./_components/Skeleton";
 import Filters from "./_components/Filters";
+import { Suspense } from "react";
 
 export default function SyllabusMappingPage() {
   return (
