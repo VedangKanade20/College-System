@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Batch from "../models/batchModel.js";
 import Semester from "../models/semesterModel.js";
 
@@ -150,23 +151,45 @@ export const addSubjectToSemester = async (req, res) => {
 export const getFacultySubjectsForSyllabus = async (req, res) => {
   try {
     const { programId, batchId, semName } = req.params;
-    const facultyId = req.user._id; // Assuming you have authentication middleware
+    const facultyId = req.user._id; // from auth middleware
 
     // Validate batch belongs to program
     const batch = await Batch.findOne({ _id: batchId, program: programId });
     if (!batch) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Batch not found for this program" });
+      return res.status(404).json({
+        success: false,
+        message: "Batch not found for this program",
+      });
     }
 
-    // Find semester with given semName and batch
-    const semester = await Semester.findOne(
-      { semName: Number(semName), batchId, "subjects.facultyId": facultyId },
-      { "subjects.$": 1, semName: 1 }
-    );
+    // Use aggregation to filter subjects at DB level
+    const semester = await Semester.aggregate([
+      {
+        $match: {
+          semName: Number(semName),
+          batchId: new mongoose.Types.ObjectId(batchId),
+        },
+      },
+      {
+        $project: {
+          semName: 1,
+          subjects: {
+            $filter: {
+              input: "$subjects",
+              as: "subj",
+              cond: {
+                $eq: [
+                  "$$subj.facultyId",
+                  new mongoose.Types.ObjectId(facultyId),
+                ],
+              },
+            },
+          },
+        },
+      },
+    ]);
 
-    if (!semester) {
+    if (!semester.length || semester[0].subjects.length === 0) {
       return res.status(404).json({
         success: false,
         message: "No subjects found for this faculty in the given semester",
@@ -175,15 +198,15 @@ export const getFacultySubjectsForSyllabus = async (req, res) => {
 
     res.json({
       success: true,
-      semName: semester.semName,
-      subjects: semester.subjects,
+      semName: semester[0].semName,
+      subjects: semester[0].subjects,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Add subject to faculty for semester
+// Add Syllabus to the subject allocated to faculty for semester
 export const addSyllabusToSubject = async (req, res) => {
   try {
     const { semesterId, subjectCode } = req.params;
