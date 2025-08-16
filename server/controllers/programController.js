@@ -1,6 +1,6 @@
 import Program from "../models/programModel.js";
 
-// function to create the program
+// function to create the program - POST request
 export const createProgram = async (req, res) => {
   try {
     const { name, code, PO } = req.body;
@@ -27,7 +27,7 @@ export const createProgram = async (req, res) => {
   }
 };
 
-//Get all Programs
+//Get all Programs - GET request
 export const getPrograms = async (req, res) => {
   try {
     const programs = await Program.find();
@@ -45,6 +45,7 @@ export const getPrograms = async (req, res) => {
   }
 };
 
+// Get a Program by id - GET request
 export const programDetail = async (req, res) => {
   try {
     const { programId } = req.params;

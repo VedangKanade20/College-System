@@ -42,6 +42,7 @@ export const createBatch = async (req, res) => {
   }
 };
 
+// Get all batches - GET request
 export const getAllBatches = async (req, res) => {
   try {
     const batches = await Batch.find();
@@ -67,6 +68,7 @@ export const getAllBatches = async (req, res) => {
   }
 };
 
+// Get a batch by id - GET request
 export const getBatchDetails = async (req, res) => {
   try {
     const { batchId } = req.params;
